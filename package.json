@@ -1,0 +1,24 @@
+{
+  "name": "employee-database",
+  "version": "1.0.0",
+  "description": "simple employee SQL database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrapich/employee-database.git"
+  },
+  "author": "https://github.com/jrapich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrapich/employee-database/issues"
+  },
+  "homepage": "https://github.com/jrapich/employee-database#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.6.0"
+  }
+}
