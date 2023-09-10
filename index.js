@@ -2,6 +2,26 @@ require('dotenv').config();
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
+const inquireData = {
+    first: {
+        type:"list",
+        name:"selection",
+        choices: [
+            "View all departments",
+            "View all roles",
+            "View all employees",
+            "Add a department",
+            "Add a role",
+            "Add an employee",
+            "Update an employee"
+        ]
+    }
+};
+
+const queryData = {
+    
+}
+
 
 const db = mysql.createConnection(
     {
@@ -14,9 +34,16 @@ const db = mysql.createConnection(
 
 //inquirer v8.2.4 suite
 (function (){
-    inquirer.prompt([
-        {
-            type:
+    inquirer.prompt(inquireData.first).then(
+        (answers) => {
+            switch (answers.selection) {
+                case inquireData.first.choices[0]:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
-    ])
+    )
 })();
