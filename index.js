@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mysql = require("mysql2");
+const inquirer = require("inquirer");
 
 
 const db = mysql.createConnection(
@@ -11,3 +12,11 @@ const db = mysql.createConnection(
     }
 )
 
+//inquirer v8.2.4 suite
+(function (){
+    inquirer.prompt([
+        {
+            type:
+        }
+    ])
+})();
