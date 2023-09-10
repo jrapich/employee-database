@@ -19,7 +19,7 @@ const inquireData = {
 };
 
 const queryData = {
-    
+
 }
 
 
@@ -38,10 +38,28 @@ const db = mysql.createConnection(
         (answers) => {
             switch (answers.selection) {
                 case inquireData.first.choices[0]:
-                    
+                    queryData.renderDepts();
                     break;
-            
+                case inquireData.first.choices[1]:
+                    queryData.renderRoles();
+                    break;
+                case inquireData.first.choices[2]:
+                    queryData.renderEmployees();
+                    break;
+                case inquireData.first.choices[3]:
+                    queryData.addDept();
+                    break;
+                case inquireData.first.choices[4]:
+                    queryData.addRole();
+                    break;
+                case inquireData.first.choices[5]:
+                    queryData.addEmployee();
+                    break;
+                case inquireData.first.choices[6]:
+                    queryData.updateEmployee();
+                    break;
                 default:
+                    console.log("an unknown error has occured");
                     break;
             }
         }
