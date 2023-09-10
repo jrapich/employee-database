@@ -1,11 +1,11 @@
 require('dotenv').config();
 const mysql = require("mysql2");
-const inquirer = require("inquirer");
 
 const inquireData = {
     first: {
         type:"list",
         name:"selection",
+        message:"Pick an action:",
         choices: [
             "View all departments",
             "View all roles",
@@ -19,7 +19,23 @@ const inquireData = {
 };
 
 const queryData = {
-
+    renderDepts: function(){
+        db.query("SELECT * FROM department", (result)=>{
+            console.log(result);
+        });
+    },
+    renderRoles: function(){
+        db.query("SELECT * FROM role", (result)=>{
+            console.log(result);
+        });
+    },
+    renderEmployees: function(){
+        db.query(
+            "SELECT id, first_name, last_name FROM employee ", 
+            (result)=>{
+                console.log(result);
+        });
+    },
 }
 
 
@@ -33,9 +49,11 @@ const db = mysql.createConnection(
 )
 
 //inquirer v8.2.4 suite
-(function (){
+function init (){
+    const inquirer = require("inquirer");
     inquirer.prompt(inquireData.first).then(
         (answers) => {
+            console.log(answers);
             switch (answers.selection) {
                 case inquireData.first.choices[0]:
                     queryData.renderDepts();
@@ -59,9 +77,12 @@ const db = mysql.createConnection(
                     queryData.updateEmployee();
                     break;
                 default:
-                    console.log("an unknown error has occured");
+                    console.log("an unknown error has occurred");
                     break;
             }
         }
     )
-})();
+}
+
+//initialize app
+init();
