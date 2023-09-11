@@ -15,7 +15,8 @@ const inquireData = {
             "Add a department",
             "Add a role",
             "Add an employee",
-            "Update an employee"
+            "Update an employee",
+            "Exit"
         ]
     },
     addDept: {
@@ -298,6 +299,9 @@ function init (){
                     });
                     setTimeout(()=>{init()},5000);
                     break;
+                case inquireData.landing.choices[7]:
+                    console.log("farewell");
+                    process.exit();
                 default:
                     console.log("an unknown error has occurred");
                     setTimeout(()=>{init()},5000);
