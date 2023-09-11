@@ -24,5 +24,8 @@ INSERT INTO employee (first_name, last_name, role_id)
         ("Jim", "Halpert", 1),
         ("Pam", "Beesley", 4),
         ("Dwight", "Shrute", 2),
-        ("Michael", "Scott", 8),
-        ("Kevin", "Malone", 7)
+        ("Kelly", "Kapoor", 3),
+        ("Darryl", "Philbin", 5),
+        ("Creed", "Bratton", 6),
+        ("Kevin", "Malone", 7),
+        ("Michael", "Scott", 8)
