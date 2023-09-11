@@ -2,6 +2,8 @@ const inquirer = require("inquirer");
 const Inquire = require("./lib/inquire");
 const Query = require("./lib/query");
 
+//all the necessary inquire prompt data being constructed
+//all the necessary db.query data and logic being constructed
 const inquireData = new Inquire();
 const queryData = new Query();
 
@@ -11,6 +13,9 @@ const queryData = new Query();
 
 //inquirer v8.2.4 suite
 function init (){
+
+// a cool text I wanted to display, but wasnt displaying right, probably depends on terminal
+//and terminal size. someday I'll come back to this
 
 //     console.log(
 //     `
@@ -28,9 +33,12 @@ function init (){
 
     inquirer.prompt(inquireData.landing).then(
         (answers) => {
+            //switch statement to have execution options for every answer that could be chosen
             switch (answers.selection) {
                 case inquireData.landing.choices[0]:
                     queryData.renderDepts();
+                    //timeout of 5 secs before displaying the entire question prompt again
+                    //this repeats in every question
                     setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[1]:
@@ -66,6 +74,7 @@ function init (){
                     setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[7]:
+                    //the exit option. selecting this will exit the prompt loop
                     console.log("farewell");
                     process.exit();
                 default:
