@@ -245,7 +245,6 @@ const db = mysql.createConnection(
 function init (){
     inquirer.prompt(inquireData.landing).then(
         (answers) => {
-            console.log(answers);
             switch (answers.selection) {
                 case inquireData.landing.choices[0]:
                     queryData.renderDepts();
