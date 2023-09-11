@@ -33,9 +33,13 @@ const queryData = {
     },
     renderEmployees: function(){
         db.query(
-            "SELECT id, first_name, last_name FROM employee ", 
-            (result)=>{
-                console.log(result);
+            `SELECT 
+                employee.id AS ID, employee.first_name AS first_name, employee.last_name AS last_name, role.title, role.salary, department.department_name
+            FROM employee
+            RIGHT JOIN role ON role.id=employee.role_id
+            RIGHT JOIN department ON department.id=role.department_id
+            `, (err, result)=>{
+                printTable(result);
         });
     },
 }
