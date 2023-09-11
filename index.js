@@ -128,6 +128,7 @@ const queryData = {
             FROM employee
             RIGHT JOIN role ON role.id=employee.role_id
             RIGHT JOIN department ON department.id=role.department_id
+            ORDER BY employee.id ASC;
             `, (err, result)=>{
                 printTable(result);
         });
