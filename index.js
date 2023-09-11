@@ -75,6 +75,38 @@ const inquireData = {
                 "regional_manager"
             ]
         }
+    ],
+    updateEmployee: [
+        {
+            type:"list",
+            name:"employeeName",
+            message:"Choose which employee to update:",
+            choices:[
+                "Jim",
+                "Pam",
+                "Dwight",
+                "Kelly",
+                "Darryl",
+                "Creed",
+                "Kevin",
+                "Michael"
+            ]
+        },
+        {
+            type:"list",
+            name:"newRole",
+            message:"Choose the new role to assign the employee:",
+            choices:[
+                "sales_rep",
+                "assistant_to_regional_manager",
+                "HR_rep",
+                "receptionist",
+                "warehouse_lead",
+                "QA_rep",
+                "accountant",
+                "regional_manager"
+            ]
+        }
     ]
 };
 
@@ -136,7 +168,6 @@ const queryData = {
         });
     },
     addEmployee: function(first, last, role){
-        console.log(role);
         let roleID;
         switch (role) {
             case "sales_rep":
@@ -161,13 +192,42 @@ const queryData = {
                 roleID=7;
                 break;
         };
-        console.log(roleID);
         db.query(`INSERT INTO employee (first_name, last_name, role_id) 
         VALUES 
             ("${first}", "${last}", "${roleID}")
         `, (err, result)=>{
             (err) ? console.log(err) : console.log(`${first} ${last} successfully added to the database.`);
         });
+    },
+    updateEmployee: function(first, role){
+        let roleID;
+        switch (role) {
+            case "sales_rep":
+                roleID = 1;
+                break;
+            case "assistant_to_regional_manager":
+                roleID = 2;
+                break;
+            case "receptionist":
+                roleID = 3;
+                break;
+            case "warehouse_lead":
+                roleID=4;
+                break;
+            case "QA_rep":
+                roleID=5;
+                break;
+            case "accountant":
+                roleID=6;
+                break;
+            case "regional_manager":
+                roleID=7;
+                break;
+    };
+    db.query(`UPDATE employee SET role_id = ${roleID} WHERE first_name = "${first}"`,
+    (err, result)=>{
+        (err) ? console.log(err) : console.log(`${first}'s role has been updated to ${role}.`);
+    });
     }
 }
 
@@ -212,7 +272,9 @@ function init (){
                     });
                     break;
                 case inquireData.landing.choices[6]:
-                    queryData.updateEmployee();
+                    inquirer.prompt(inquireData.updateEmployee).then((a)=>{
+                        queryData.updateEmployee(a.employeeName, a.newRole);
+                    });
                     break;
                 default:
                     console.log("an unknown error has occurred");
