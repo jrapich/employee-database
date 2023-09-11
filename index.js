@@ -20,12 +20,12 @@ const inquireData = {
 
 const queryData = {
     renderDepts: function(){
-        db.query("SELECT * FROM department", (result)=>{
+        db.query("SELECT * FROM department", (err, result)=>{
             console.log(result);
         });
     },
     renderRoles: function(){
-        db.query("SELECT * FROM role", (result)=>{
+        db.query("SELECT * FROM role", (err, result)=>{
             console.log(result);
         });
     },
