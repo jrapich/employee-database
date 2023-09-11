@@ -42,6 +42,12 @@ const queryData = {
                 printTable(result);
         });
     },
+    addDept: function (newDept){
+        db.query(`INSERT INTO department (department_name)
+            VALUES
+                (${newDept});`);
+        console.log(`successfully saved new department ${newDept} into database.`)
+    }
 }
 
 
