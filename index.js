@@ -1,5 +1,7 @@
 require('dotenv').config();
+const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const {printTable} = require("console-table-printer");
 
 const inquireData = {
     first: {
@@ -21,12 +23,12 @@ const inquireData = {
 const queryData = {
     renderDepts: function(){
         db.query("SELECT * FROM department", (err, result)=>{
-            console.log(result);
+            printTable(result);
         });
     },
     renderRoles: function(){
         db.query("SELECT * FROM role", (err, result)=>{
-            console.log(result);
+            printTable(result);
         });
     },
     renderEmployees: function(){
@@ -50,7 +52,6 @@ const db = mysql.createConnection(
 
 //inquirer v8.2.4 suite
 function init (){
-    const inquirer = require("inquirer");
     inquirer.prompt(inquireData.first).then(
         (answers) => {
             console.log(answers);
