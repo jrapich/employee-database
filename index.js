@@ -264,35 +264,43 @@ function init (){
             switch (answers.selection) {
                 case inquireData.landing.choices[0]:
                     queryData.renderDepts();
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[1]:
                     queryData.renderRoles();
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[2]:
                     queryData.renderEmployees();
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[3]:
                     inquirer.prompt(inquireData.addDept).then((answers)=>{
                         queryData.addDept(answers.addDept);
                     });
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[4]:
                     inquirer.prompt(inquireData.addRole).then((a)=>{
                         queryData.addRole(a.roleName, a.salary, a.dept);
                     });
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[5]:
                     inquirer.prompt(inquireData.addEmployee).then((a)=>{
                         queryData.addEmployee(a.first, a.last, a.role); 
                     });
+                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[6]:
                     inquirer.prompt(inquireData.updateEmployee).then((a)=>{
                         queryData.updateEmployee(a.employeeName, a.newRole);
                     });
+                    setTimeout(()=>{init()},5000);
                     break;
                 default:
                     console.log("an unknown error has occurred");
+                    setTimeout(()=>{init()},5000);
                     break;
             }
         }
