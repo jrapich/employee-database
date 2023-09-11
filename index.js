@@ -4,7 +4,7 @@ const mysql = require("mysql2");
 const {printTable} = require("console-table-printer");
 
 const inquireData = {
-    first: {
+    landing: {
         type:"list",
         name:"selection",
         message:"Pick an action:",
