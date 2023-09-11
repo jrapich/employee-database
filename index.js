@@ -22,7 +22,33 @@ const inquireData = {
         type:"input",
         name:"addDept",
         message:"Please enter the name of the department you wish to add to the database:"
-    }
+    },
+    addRole: [
+        {
+            type:"input",
+            name:"roleName",
+            message:"Please type the name of the role you wish to add to the database:"
+        },
+        {
+            type:"input",
+            name:"salary",
+            message:"Please type the salary of the role you wish to add to the database(no commas or periods):"
+        },
+        {
+            type:"list",
+            name:"dept",
+            message:"Please choose the department the new role belongs to:",
+            choices:[
+                "Sales",
+                "Human Resources",
+                "Reception",
+                "Warehouse",
+                "Quality Assurance",
+                "Accounting",
+                "Administration"  
+            ]
+        }
+    ]
 };
 
 const queryData = {
@@ -50,6 +76,36 @@ const queryData = {
     addDept: function (newDept){
         db.query(`INSERT INTO department (department_name) VALUE ("${newDept}");`, (err, result)=> {
             (err) ? console.log(err) : console.log(`successfully saved new department ${newDept} into database.`);
+        });
+    },
+    addRole: function(roleName, salary, dept){
+        let roleDept;
+        switch (dept) {
+            case "Sales":
+                roleDept = 1;
+                break;
+            case "Human Resources":
+                roleDept = 2;
+                break;
+            case "Reception":
+                roleDept = 3;
+                break;
+            case "Warehouse":
+                roleDept=4;
+                break;
+            case "Quality Assurance":
+                roleDept=5;
+                break;
+            case "Accounting":
+                roleDept=6;
+                break;
+            case "Administration":
+                roleDept=7;
+                break;
+        }       
+        db.query(`INSERT INTO role (title, salary, department_id) VALUE ("${roleName}", "${salary}", "${roleDept}")`,
+        (err, result)=>{
+            (err) ? console.log(err) : console.log(`successfully saved new role ${roleName} into database.`);
         });
     }
 }
@@ -85,7 +141,9 @@ function init (){
                     });
                     break;
                 case inquireData.landing.choices[4]:
-                    queryData.addRole();
+                    inquirer.prompt(inquireData.addRole).then((a)=>{
+                        queryData.addRole(a.roleName, a.salary, a.dept);
+                    });
                     break;
                 case inquireData.landing.choices[5]:
                     queryData.addEmployee();
