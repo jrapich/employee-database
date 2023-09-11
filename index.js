@@ -17,6 +17,11 @@ const inquireData = {
             "Add an employee",
             "Update an employee"
         ]
+    },
+    addDept: {
+        type:"input",
+        name:"addDept",
+        message:"Please enter the name of the department you wish to add to the database:"
     }
 };
 
@@ -43,10 +48,9 @@ const queryData = {
         });
     },
     addDept: function (newDept){
-        db.query(`INSERT INTO department (department_name)
-            VALUES
-                (${newDept});`);
-        console.log(`successfully saved new department ${newDept} into database.`)
+        db.query(`INSERT INTO department (department_name) VALUE ("${newDept}");`, (err, result)=> {
+            (err) ? console.log(err) : console.log(`successfully saved new department ${newDept} into database.`);
+        });
     }
 }
 
@@ -62,29 +66,31 @@ const db = mysql.createConnection(
 
 //inquirer v8.2.4 suite
 function init (){
-    inquirer.prompt(inquireData.first).then(
+    inquirer.prompt(inquireData.landing).then(
         (answers) => {
             console.log(answers);
             switch (answers.selection) {
-                case inquireData.first.choices[0]:
+                case inquireData.landing.choices[0]:
                     queryData.renderDepts();
                     break;
-                case inquireData.first.choices[1]:
+                case inquireData.landing.choices[1]:
                     queryData.renderRoles();
                     break;
-                case inquireData.first.choices[2]:
+                case inquireData.landing.choices[2]:
                     queryData.renderEmployees();
                     break;
-                case inquireData.first.choices[3]:
-                    queryData.addDept();
+                case inquireData.landing.choices[3]:
+                    inquirer.prompt(inquireData.addDept).then((answers)=>{
+                        queryData.addDept(answers.addDept);
+                    });
                     break;
-                case inquireData.first.choices[4]:
+                case inquireData.landing.choices[4]:
                     queryData.addRole();
                     break;
-                case inquireData.first.choices[5]:
+                case inquireData.landing.choices[5]:
                     queryData.addEmployee();
                     break;
-                case inquireData.first.choices[6]:
+                case inquireData.landing.choices[6]:
                     queryData.updateEmployee();
                     break;
                 default:
