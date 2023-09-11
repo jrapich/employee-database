@@ -48,6 +48,33 @@ const inquireData = {
                 "Administration"  
             ]
         }
+    ],
+    addEmployee: [
+        {
+            type:"input",
+            name:"first",
+            message:"Enter the new employee's first name:"
+        },
+        {
+            type:"input",
+            name:"last",
+            message:"Enter the new employee's last name:"
+        },
+        {
+            type:"list",
+            name:"role",
+            message:"Choose the new employee's role:",
+            choices:[
+                "sales_rep",
+                "assistant_to_regional_manager",
+                "HR_rep",
+                "receptionist",
+                "warehouse_lead",
+                "QA_rep",
+                "accountant",
+                "regional_manager"
+            ]
+        }
     ]
 };
 
@@ -102,10 +129,44 @@ const queryData = {
             case "Administration":
                 roleDept=7;
                 break;
-        }       
+        };   
         db.query(`INSERT INTO role (title, salary, department_id) VALUE ("${roleName}", "${salary}", "${roleDept}")`,
         (err, result)=>{
             (err) ? console.log(err) : console.log(`successfully saved new role ${roleName} into database.`);
+        });
+    },
+    addEmployee: function(first, last, role){
+        console.log(role);
+        let roleID;
+        switch (role) {
+            case "sales_rep":
+                roleID = 1;
+                break;
+            case "assistant_to_regional_manager":
+                roleID = 2;
+                break;
+            case "receptionist":
+                roleID = 3;
+                break;
+            case "warehouse_lead":
+                roleID=4;
+                break;
+            case "QA_rep":
+                roleID=5;
+                break;
+            case "accountant":
+                roleID=6;
+                break;
+            case "regional_manager":
+                roleID=7;
+                break;
+        };
+        console.log(roleID);
+        db.query(`INSERT INTO employee (first_name, last_name, role_id) 
+        VALUES 
+            ("${first}", "${last}", "${roleID}")
+        `, (err, result)=>{
+            (err) ? console.log(err) : console.log(`${first} ${last} successfully added to the database.`);
         });
     }
 }
@@ -118,7 +179,7 @@ const db = mysql.createConnection(
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME
     }
-)
+);
 
 //inquirer v8.2.4 suite
 function init (){
@@ -146,7 +207,9 @@ function init (){
                     });
                     break;
                 case inquireData.landing.choices[5]:
-                    queryData.addEmployee();
+                    inquirer.prompt(inquireData.addEmployee).then((a)=>{
+                        queryData.addEmployee(a.first, a.last, a.role); 
+                    });
                     break;
                 case inquireData.landing.choices[6]:
                     queryData.updateEmployee();
