@@ -52,26 +52,26 @@ function init (){
                 case inquireData.landing.choices[3]:
                     inquirer.prompt(inquireData.addDept).then((answers)=>{
                         queryData.addDept(answers.addDept);
+                        setTimeout(()=>{init()},5000);
                     });
-                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[4]:
                     inquirer.prompt(inquireData.addRole).then((a)=>{
                         queryData.addRole(a.roleName, a.salary, a.dept);
+                        setTimeout(()=>{init()},5000);
                     });
-                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[5]:
                     inquirer.prompt(inquireData.addEmployee).then((a)=>{
                         queryData.addEmployee(a.first, a.last, a.role); 
+                        setTimeout(()=>{init()},5000);
                     });
-                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[6]:
                     inquirer.prompt(inquireData.updateEmployee).then((a)=>{
                         queryData.updateEmployee(a.employeeName, a.newRole);
+                        setTimeout(()=>{init()},5000);
                     });
-                    setTimeout(()=>{init()},5000);
                     break;
                 case inquireData.landing.choices[7]:
                     //the exit option. selecting this will exit the prompt loop
